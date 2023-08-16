@@ -22,6 +22,7 @@ void get_URL(const string &host, const string &path) {
     sock.write("GET "+path+" HTTP/1.1\r\n");
     sock.write("Host: "+host+"\r\n");
     sock.write("Connection: close\r\n\r\n");
+    sock.shutdown(SHUT_WR);
     while (!sock.eof())
     {
         cout<<sock.read();
