@@ -1,6 +1,7 @@
 *.a
 *.o
 /build
+/Debug
 CMakeCache.txt
 CMakeFiles
 Makefile
