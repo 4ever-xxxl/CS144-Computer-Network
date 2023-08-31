@@ -51,6 +51,13 @@ class StreamReassembler {
     //! \brief Is the internal state empty (other than the output stream)?
     //! \returns `true` if no substrings are waiting to be assembled
     bool empty() const;
+
+    //! The expected number of syn in the next segment
+    size_t ack_idx() const;
+
+    //! \brief Is the stream_reassembler ending?
+    //! \returns `true` if stream_reassembler has ended
+    bool input_ended() const;
 };
 
 #endif  // SPONGE_LIBSPONGE_STREAM_REASSEMBLER_HH
