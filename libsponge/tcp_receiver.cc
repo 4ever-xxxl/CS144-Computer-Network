@@ -20,12 +20,12 @@ void TCPReceiver::segment_received(const TCPSegment &seg) {
         _isn = seg.header().seqno;
     }
     _seqno = seg.header().seqno + seg.header().syn;
-    _abs_seqno = unwrap(_seqno, _isn, _reassembler.stream_out().bytes_written());
+    _abs_seqno = unwrap(_seqno, _isn, _reassembler.ack_idx());
     _reassembler.push_substring(seg.payload().copy(), _abs_seqno - 1, seg.header().fin);
 }
 
 optional<WrappingInt32> TCPReceiver::ackno() const {
-    size_t _abs_ackno = _reassembler.stream_out().bytes_written() + _syn_flag + _reassembler.input_ended();
+    size_t _abs_ackno = _reassembler.ack_idx() + _syn_flag + _reassembler.input_ended();
     if (_abs_ackno > 0) {
         return wrap(_abs_ackno, _isn);
     } else {
